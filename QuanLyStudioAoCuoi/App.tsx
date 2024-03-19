@@ -2,9 +2,9 @@ import {StyleSheet, Text, View} from "react-native";
 import React from "react";
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Welcome from "./Welcome.tsx";
 import Login from "./Login.tsx";
 import SignUp from "./SignUp.tsx";
+import Welcome from "./Welcome.tsx";
 
 
 function HomeScreen() {
@@ -20,7 +20,7 @@ const Stack = createNativeStackNavigator();
 function App() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName= "Đăng nhập">
+            <Stack.Navigator initialRouteName= "Welcome">
                 <Stack.Screen name="Home" component={HomeScreen}/>
                 <Stack.Screen name="Welcome" component={Welcome} options={{headerShown: false}}/>
                 <Stack.Screen name="Đăng nhập" component={Login} options={{headerShown: false}}/>
