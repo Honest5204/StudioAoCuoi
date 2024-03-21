@@ -1,10 +1,11 @@
 import {StyleSheet, Text, View} from "react-native";
-import React from "react";
+import * as React from "react";
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from "./Login.tsx";
 import SignUp from "./SignUp.tsx";
 import Welcome from "./Welcome.tsx";
+import TinTucScreen from "./TinTucScreen.tsx";
 
 
 function HomeScreen() {
@@ -25,6 +26,7 @@ function App() {
                 <Stack.Screen name="Welcome" component={Welcome} options={{headerShown: false}}/>
                 <Stack.Screen name="Đăng nhập" component={Login} options={{headerShown: false}}/>
                 <Stack.Screen name="Đăng ký" component={SignUp} options={{headerShown: false}}/>
+                <Stack.Screen name={"Tin Tức"} component={TinTucScreen} options={{headerShown: false}}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
