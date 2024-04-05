@@ -1,3 +1,4 @@
+import React, {useState, useEffect} from 'react';
 import {
   ImageBackground,
   StyleSheet,
@@ -5,22 +6,70 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ToastAndroid,
+  Alert,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function Login(props) {
-  const [rmb, setrmb] = useState(true);
-    const [tk, settk] = useState('');
-    const [mk, setmk] = useState('');
+const Login = ({navigation}) => {
+  const [rmb, setRmb] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
+      const userId = await AsyncStorage.getItem('userId');
+      if (isLoggedIn === 'true' && userId) {
+        navigation.navigate('Home', {userId});
+      }
+    };
+
+    checkLoggedIn();
+  }, []);
+
+  const handleLogin = async () => {
+    try {
+      if (!email || !password) {
+        throw new Error('Email and password are required');
+      }
+
+      // Perform user authentication here
+      const response = await fetch('http://172.20.10.4:3000/getListUsers');
+      const userList = await response.json();
+      const user = userList.find(
+        user => user.email === email && user.password === password,
+      );
+      if (user) {
+        const userId = user._id; // Lấy ID của người dùng
+        if (rmb) {
+          await AsyncStorage.setItem('userId', userId);
+        } else {
+          await AsyncStorage.removeItem('userId');
+        }
+        if (rmb) {
+          await AsyncStorage.setItem('isLoggedIn', 'true');
+        } else {
+          await AsyncStorage.removeItem('isLoggedIn');
+        }
+
+        navigation.navigate('Home', {userId});
+        ToastAndroid.show('Login successful', ToastAndroid.SHORT);
+      } else {
+        Alert.alert('Error', 'Invalid email or password');
+      }
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Error', error.message);
+    }
+  };
 
   return (
     <View style={{height: '100%'}}>
       <ImageBackground
-        source={require('./assets/img/bgr1.jpg')}
+        source={require('../../assets/img/bgr1.jpg')}
         style={{width: '100%', height: 350}}></ImageBackground>
-
       <View
         style={{
           backgroundColor: 'white',
@@ -68,15 +117,18 @@ function Login(props) {
             }}>
             |
           </Text>
-          <TextInput onChangeText={(txt)=>settk(txt)} style={{width: '75%'}} placeholder="Enter your email" />
-            <TouchableOpacity>
-                <Icon
-                    style={{width: 30, marginRight: 5}}
-                    name={'close-circle-outline'}
-                    size={25}
-                    color={'black'}></Icon>
-            </TouchableOpacity>
-
+          <TextInput
+            onChangeText={txt => setEmail(txt)}
+            style={{width: '75%'}}
+            placeholder="Enter your email"
+          />
+          <TouchableOpacity>
+            <Icon
+              style={{width: 30, marginRight: 5}}
+              name={'close-circle-outline'}
+              size={25}
+              color={'black'}></Icon>
+          </TouchableOpacity>
         </View>
         <View
           style={{
@@ -105,20 +157,23 @@ function Login(props) {
             }}>
             |
           </Text>
-          <TextInput onChangeText={(txt)=>setmk(txt)} style={{width: '75%'}} placeholder="Enter your password" />
-            <TouchableOpacity>
-                <Icon
-                    style={{width: 30, marginRight: 5}}
-                    name={'eye-outline'}
-                    size={25}
-                    color={'black'}></Icon>
-            </TouchableOpacity>
-
+          <TextInput
+            onChangeText={txt => setPassword(txt)}
+            style={{width: '75%'}}
+            placeholder="Enter your password"
+          />
+          <TouchableOpacity>
+            <Icon
+              style={{width: 30, marginRight: 5}}
+              name={'eye-outline'}
+              size={25}
+              color={'black'}></Icon>
+          </TouchableOpacity>
         </View>
 
         <View style={{flexDirection: 'row'}}>
           <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
-            <TouchableOpacity onPress={() => setrmb(!rmb)}>
+            <TouchableOpacity onPress={() => setRmb(!rmb)}>
               <View
                 style={{
                   borderWidth: 2,
@@ -144,6 +199,7 @@ function Login(props) {
         </View>
 
         <TouchableOpacity
+          onPress={handleLogin}
           style={{
             backgroundColor: 'orange',
             borderRadius: 10,
@@ -169,8 +225,7 @@ function Login(props) {
             marginTop: 20,
           }}>
           <Text style={{fontSize: 16}}>Don't have account?</Text>
-          <TouchableOpacity onPress={()=> props.navigation.navigate("Đăng ký")
-          }>
+          <TouchableOpacity onPress={() => navigation.navigate('Đăng ký')}>
             <Text style={{fontSize: 16, marginLeft: 5, color: 'red'}}>
               Sign up
             </Text>
@@ -220,6 +275,6 @@ function Login(props) {
       </View>
     </View>
   );
-}
+};
 
 export default Login;

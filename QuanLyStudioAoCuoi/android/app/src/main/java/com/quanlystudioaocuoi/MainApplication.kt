@@ -1,5 +1,6 @@
 package com.quanlystudioaocuoi
 
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage;
 import android.app.Application
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
