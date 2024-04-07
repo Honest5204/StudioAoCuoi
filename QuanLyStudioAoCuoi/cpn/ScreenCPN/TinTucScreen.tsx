@@ -14,7 +14,7 @@ const TinTucScreen = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://192.168.1.27:3000/getListNews');
+      const response = await fetch('http://172.24.64.1:3000/getListNews');
       const newData = await response.json();
       setData(newData);
     } catch (error) {
@@ -28,10 +28,19 @@ const TinTucScreen = () => {
 
   const renderItem = ({item}) => {
     return (
-      <View>
-        <Text>{item.name}</Text>
-        <Text>{item.content}</Text>
-        <Image source={{uri: item.image}} style={{width: 100, height: 100}} />
+      <View style={{flex: 1, marginBottom: 15}}>
+        <View style={{flex: 2, margin: 5}}>
+          <Text style={{color: 'black', fontSize: 20}}>{item.name}</Text>
+          <Text>{item.content}</Text>
+        </View>
+
+        <View style={{flex: 6}}>
+          <Image
+            source={{uri: item.image}}
+            style={{width: '100%', height: 300}}
+            resizeMode={'stretch'}
+          />
+        </View>
       </View>
     );
   };

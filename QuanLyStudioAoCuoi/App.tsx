@@ -21,6 +21,8 @@ import AddService from './cpn/CPNAdmin/AddService.tsx';
 import ServiceCRUD from './cpn/CPNAdmin/ServiceCRUD.tsx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import ChangePassword from './cpn/ScreenCPN/ChangePassword.tsx';
+import {Alert} from 'react-native';
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -57,7 +59,7 @@ function App() {
         <Stack.Screen
           name={'DetailService'}
           component={DetailService}
-          options={{headerShown: false}}
+          options={{headerShown: true}}
         />
         <Stack.Screen
           name={'Addnews'}
@@ -95,7 +97,7 @@ function MyDrawer() {
   const getUserInfo = async userId => {
     try {
       const response = await axios.get(
-        `http://192.168.1.27:3000/getUser/${userId}`,
+        `http://172.24.64.1:3000/getUser/${userId}`,
       );
       const userData = response.data;
       setIsAdmin(userData.type === 'admin');
@@ -119,6 +121,7 @@ function MyDrawer() {
       <Drawer.Screen name="Đặt lịch tư vấn" component={ScheduleAConsultation} />
       <Drawer.Screen name="Đặt in ảnh" component={OrderPhotoPrinting} />
       <Drawer.Screen name="Giới thiệu" component={IntroduceScreen} />
+      <Drawer.Screen name="Đổi mật khẩu" component={ChangePassword} />
       <Drawer.Screen name="Đăng xuất" component={LogOut} />
     </Drawer.Navigator>
   );

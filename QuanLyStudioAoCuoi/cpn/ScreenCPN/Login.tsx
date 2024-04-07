@@ -36,7 +36,7 @@ const Login = ({navigation}) => {
       }
 
       // Perform user authentication here
-      const response = await fetch('http://172.20.10.4:3000/getListUsers');
+      const response = await fetch('http://172.24.64.1:3000/getListUsers');
       const userList = await response.json();
       const user = userList.find(
         user => user.email === email && user.password === password,
@@ -55,6 +55,7 @@ const Login = ({navigation}) => {
         }
 
         navigation.navigate('Home', {userId});
+
         ToastAndroid.show('Login successful', ToastAndroid.SHORT);
       } else {
         Alert.alert('Error', 'Invalid email or password');

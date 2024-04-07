@@ -59,7 +59,7 @@ const Addnews = ({navigation, route}) => {
         return;
       }
       const newsData = {name, content, image: imageURL};
-      await axios.post('http://192.168.1.27:3000/addnews', newsData);
+      await axios.post('http://172.24.64.1:3000/addnews', newsData);
       // Sau khi thêm tin tức, clear các trường dữ liệu
       setName('');
       setContent('');

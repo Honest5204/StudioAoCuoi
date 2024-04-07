@@ -8,7 +8,7 @@ const ListUser = () => {
 
   const featchData = async () => {
     try {
-      const response = await axios.get('http://192.168.1.27:3000/getListUsers');
+      const response = await axios.get('http://172.24.64.1:3000/getListUsers');
       setData(response.data);
     } catch (error) {
       console.error(error);

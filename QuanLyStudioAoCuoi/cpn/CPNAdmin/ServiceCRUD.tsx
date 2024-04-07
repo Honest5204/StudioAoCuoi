@@ -29,7 +29,7 @@ const ServiceCRUD = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://192.168.1.27:3000/getListService');
+      const response = await fetch('http://172.24.64.1:3000/getListService');
       const newData = await response.json();
       setData(newData);
     } catch (error) {
@@ -90,9 +90,7 @@ const ServiceCRUD = () => {
                 // Xóa ảnh trên Firebase trước khi xóa tin tức
                 await storage().refFromURL(news.image).delete();
               }
-              await axios.delete(
-                `http://192.168.1.27:3000/deleteservice/${id}`,
-              );
+              await axios.delete(`http://172.24.64.1:3000/deleteservice/${id}`);
               // Sau khi xóa, cập nhật lại danh sách tin tức
               fetchData();
             },
@@ -136,7 +134,7 @@ const ServiceCRUD = () => {
       }
 
       await axios.put(
-        `http://192.168.1.27:3000/updateservice/${editingNews._id}`,
+        `http://172.24.64.1:3000/updateservice/${editingNews._id}`,
         {
           name: editedName,
           content: editedContent,

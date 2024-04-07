@@ -29,7 +29,7 @@ const NewsCRUD = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://192.168.1.27:3000/getListNews');
+      const response = await fetch('http://172.24.64.1:3000/getListNews');
       const newData = await response.json();
       setData(newData);
     } catch (error) {

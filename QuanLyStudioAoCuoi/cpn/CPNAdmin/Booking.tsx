@@ -6,7 +6,7 @@ const Booking = () => {
   const [data, setData] = useState([]);
   const featchData = async () => {
     try {
-      const response = await axios.get('http://192.168.1.27:3000/getSchedule');
+      const response = await axios.get('http://172.24.64.1:3000/getSchedule');
       setData(response.data);
     } catch (error) {
       console.error(error);

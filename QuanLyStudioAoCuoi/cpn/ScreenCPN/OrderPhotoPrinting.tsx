@@ -3,10 +3,12 @@ import {
   Alert,
   Button,
   Image,
+  ImageBackground,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
@@ -108,7 +110,7 @@ const OrderPhotoPrinting = () => {
       };
 
       // Gửi dữ liệu đơn hàng cùng URL của hình ảnh lên MongoDB thông qua backend Node.js
-      await axios.post('http://192.168.1.27:3000/photoPrinting', orderData);
+      await axios.post('http://172.24.64.1:3000/photoPrinting', orderData);
 
       Alert.alert('Thông báo', 'Đơn hàng đã được gửi thành công!');
     } catch (error) {
@@ -120,13 +122,25 @@ const OrderPhotoPrinting = () => {
     setSize(selectedSize);
   };
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text>Đăng kí in ảnh</Text>
+    <ImageBackground
+      source={require('../../assets/img/bgr8.jpg')}
+      resizeMode={'stretch'}
+      style={styles.container}>
+      <Text
+        style={{
+          fontSize: 30,
+          fontWeight: 'bold',
+          textAlign: 'center',
+          color: 'black',
+          marginTop: 40,
+        }}>
+        ĐẶT IN ẢNH
+      </Text>
+      <ScrollView>
         <TextInput
-          placeholder="Nhâp tên"
+          placeholder="Nhập tên"
           onChangeText={txt => setName(txt)}
-          style={styles.input}
+          style={styles.input2}
         />
         <TextInput
           placeholder="Email"
@@ -150,28 +164,45 @@ const OrderPhotoPrinting = () => {
               key={index}
               source={{uri}}
               style={styles.image}
-              resizeMode="contain"
+              resizeMode="stretch"
             />
           ))}
         </View>
-        <Button title="Chọn ảnh từ thư viện" onPress={onSelectImage} />
-        <Button title="Đăng kí" onPress={handleSubmit} />
-      </View>
-    </ScrollView>
+        <TouchableOpacity onPress={onSelectImage} style={styles.btnButton}>
+          <Text style={styles.buttonText}>Chọn ảnh từ thư viện</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={handleSubmit} style={styles.btnButton2}>
+          <Text style={styles.buttonText}>Đăng ký</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 10,
+    height: '100%',
     justifyContent: 'center',
   },
   input: {
     borderWidth: 1,
     marginBottom: 10,
+    borderRadius: 5,
     padding: 10,
-    width: '100%',
+    backgroundColor: 'white',
+    margin: 10,
+    width: '95%',
+  },
+  input2: {
+    borderWidth: 1,
+    marginBottom: 10,
+    borderRadius: 5,
+    padding: 10,
+    margin: 10,
+    backgroundColor: 'white',
+    marginTop: 30,
+    width: '95%',
   },
   image: {
     width: 100,
@@ -183,6 +214,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
+  },
+  btnButton: {
+    backgroundColor: 'green',
+    borderRadius: 10,
+    marginTop: 20,
+    margin: 10,
+    height: 60,
+    width: '95%',
+    justifyContent: 'center',
+  },
+  btnButton2: {
+    backgroundColor: 'blue',
+    borderRadius: 10,
+    marginTop: 20,
+    margin: 10,
+    height: 60,
+    width: '95%',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: 'white',
   },
 });
 
