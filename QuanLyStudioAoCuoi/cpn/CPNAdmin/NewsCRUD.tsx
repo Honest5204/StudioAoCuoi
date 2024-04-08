@@ -86,10 +86,10 @@ const NewsCRUD = () => {
             text: 'Xóa',
             onPress: async () => {
               const news = data.find(item => item._id === id);
-              if (news && news.image) {
-                // Xóa ảnh trên Firebase trước khi xóa tin tức
-                await storage().refFromURL(news.image).delete();
-              }
+              // if (news && news.image) {
+              //   // Xóa ảnh trên Firebase trước khi xóa tin tức
+              //   await storage().refFromURL(news.image).delete();
+              // }
               await axios.delete(`http://172.16.0.2:3000/deletenews/${id}`);
               // Sau khi xóa, cập nhật lại danh sách tin tức
               fetchData();

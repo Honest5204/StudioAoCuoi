@@ -159,6 +159,7 @@ const Home = ({navigation}) => {
         data={featuredData}
         renderItem={renderFeaturedItem}
         keyExtractor={item => item.title}
+        style={{marginLeft: 5}}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }

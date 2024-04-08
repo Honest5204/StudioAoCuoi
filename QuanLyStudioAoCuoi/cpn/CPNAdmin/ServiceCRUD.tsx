@@ -10,7 +10,8 @@ import {
   TouchableOpacity,
   View,
   Alert,
-  RefreshControl, // Thêm Alert từ react-native
+  RefreshControl,
+  ToastAndroid, // Thêm Alert từ react-native
 } from 'react-native';
 import axios from 'axios';
 import storage from '@react-native-firebase/storage';
@@ -86,12 +87,13 @@ const ServiceCRUD = () => {
             text: 'Xóa',
             onPress: async () => {
               const news = data.find(item => item._id === id);
-              if (news && news.image) {
-                // Xóa ảnh trên Firebase trước khi xóa tin tức
-                await storage().refFromURL(news.image).delete();
-              }
+              // if (news && news.image) {
+              //   // Xóa ảnh trên Firebase trước khi xóa tin tức
+              //   await storage().refFromURL(news.image).delete();
+              // }
               await axios.delete(`http://172.16.0.2:3000/deleteservice/${id}`);
               // Sau khi xóa, cập nhật lại danh sách tin tức
+              ToastAndroid.show('Xóa tin tức thành công', ToastAndroid.SHORT);
               fetchData();
             },
             style: 'destructive',
