@@ -16,9 +16,7 @@ const ServiceScreen = ({navigation}) => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        'http://192.168.1.152:3000/getListService',
-      );
+      const response = await axios.get('http://172.16.0.2:3000/getListService');
       setData(response.data);
     } catch (error) {
       console.error(error);

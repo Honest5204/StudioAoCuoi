@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import axios from 'axios';
 const Booking = () => {
   const [data, setData] = useState([]);
   const featchData = async () => {
     try {
-      const response = await axios.get('http://192.168.1.152:3000/getSchedule');
+      const response = await axios.get('http://172.16.0.2:3000/getSchedule');
       setData(response.data);
     } catch (error) {
       console.error(error);

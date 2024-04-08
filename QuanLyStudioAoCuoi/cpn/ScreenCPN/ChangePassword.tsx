@@ -23,7 +23,7 @@ const ChangePassword = () => {
     try {
       const userId = await AsyncStorage.getItem('userId');
       const response = await axios.put(
-        `http://192.168.1.152:3000/updatePassword/${userId}`,
+        `http://172.16.0.2:3000/updatePassword/${userId}`,
         {password: newPass},
         {headers: {'Content-Type': 'application/json'}},
       );
@@ -44,7 +44,7 @@ const ChangePassword = () => {
       const userId = await AsyncStorage.getItem('userId');
 
       const response = await axios.get(
-        `http://192.168.1.152:3000/getId/${userId}`,
+        `http://172.16.0.2:3000/getId/${userId}`,
       );
       const userData = response.data;
       if (oldPass == userData.password) {

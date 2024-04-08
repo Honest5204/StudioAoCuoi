@@ -7,8 +7,9 @@ import {
   ScrollView,
   TextInput,
   StyleSheet,
-  Alert, TouchableOpacity
-} from "react-native";
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
 import axios from 'axios';
@@ -59,7 +60,7 @@ const AddService = ({navigation, route}) => {
         return;
       }
       const newsData = {name, image: imageURL, content};
-      await axios.post('http://192.168.1.152:3000/addservice', newsData);
+      await axios.post('http://172.16.0.2:3000/addservice', newsData);
       // Sau khi thêm tin tức, clear các trường dữ liệu
       setName('');
       setContent('');

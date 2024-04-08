@@ -16,7 +16,7 @@ const CustomItemVideo = ({item}) => {
 
   const navigation = useNavigation();
   return (
-    <View>
+    <View style={{padding: 10}}>
       <YoutubePlayer
         height={200}
         width={300}
@@ -24,7 +24,9 @@ const CustomItemVideo = ({item}) => {
         play={playing}
         onChangeState={onStateChange}
       />
-      <Text>{item.name}</Text>
+      <Text style={{color: 'hotpink', width: 300, fontWeight: 'bold'}}>
+        {item.name}
+      </Text>
     </View>
   );
 };

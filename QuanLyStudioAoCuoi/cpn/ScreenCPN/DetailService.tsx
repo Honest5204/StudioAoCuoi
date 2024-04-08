@@ -1,47 +1,50 @@
 import React from 'react';
 
 import {Image, Text, View} from 'react-native';
-import * as url from 'url';
 
 const DetailService = ({route}) => {
   const item = route.params.item;
   return (
-    <View style={{flex: 1}}>
-      <View
+    <View style={{padding: 10}}>
+      <Text
         style={{
-          flex: 4,
-          borderBottomLeftRadius: 15,
-          borderBottomRightRadius: 15,
+          padding: 5,
+          fontWeight: 'bold',
+          color: 'rgb(238,44,130)',
+          fontSize: 30,
         }}>
-        <Image
-          style={{
-            width: '100%',
-            height: '100%',
-            borderBottomLeftRadius: 15,
-            borderBottomRightRadius: 15,
-          }}
-          source={{uri: item.image}}
-          resizeMode={'stretch'}
-        />
-      </View>
-
-      <View style={{flex: 5, alignItems: 'center'}}>
-        <Text
-          style={{
-            marginTop: 20,
-            fontSize: 25,
-            textAlign: 'center',
-            fontWeight: 'bold',
-            color: 'blue',
-            margin: 5,
-          }}>
-          {item.name}
-        </Text>
-        <View style={{borderWidth: 0.2, width: '80%', margin: 20}}></View>
-        <Text style={{fontSize: 17, margin: 5, color: 'black'}}>
-          {item.content}
-        </Text>
-      </View>
+        Câu chuyện Mailisa
+      </Text>
+      <Text style={{fontWeight: 'bold', padding: 10}}>
+        Chặng đường 15 năm xây dựng và phát triển thương hiệu Mailisa uy tín,
+        chuyên nghiệp, chất lượng, gần gũi trong lòng khách hàng là minh chứng
+        rõ ràng nhất cho tâm huyết và thành quả của người sáng lập cùng toàn thể
+        cán bộ nhân viên công ty.
+      </Text>
+      <Image
+        source={{uri: item.image}}
+        style={{
+          alignSelf: 'center',
+          padding: 10,
+          width: 320,
+          height: 420,
+          borderRadius: 15,
+        }}
+      />
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: 18,
+          padding: 5,
+          fontWeight: 'bold',
+          color: 'rgb(238,44,130)',
+        }}>
+        {item.name}
+      </Text>
+      <Text style={{}}>
+        ------------------------------------------------------------------------------------------------------
+      </Text>
+      <Text style={{fontWeight: 'bold'}}>{item.content}</Text>
     </View>
   );
 };

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import { FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
+import {FlatList, RefreshControl, StyleSheet, Text, View} from 'react-native';
 import axios from 'axios';
 const ListUser = () => {
   const [data, setData] = useState([]);
@@ -8,7 +8,7 @@ const ListUser = () => {
 
   const featchData = async () => {
     try {
-      const response = await axios.get('http://192.168.1.152:3000/getListUsers');
+      const response = await axios.get('http://172.16.0.2:3000/getListUsers');
       setData(response.data);
     } catch (error) {
       console.error(error);

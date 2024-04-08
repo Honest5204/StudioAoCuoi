@@ -29,7 +29,7 @@ const NewsCRUD = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://192.168.1.152:3000/getListNews');
+      const response = await fetch('http://172.16.0.2:3000/getListNews');
       const newData = await response.json();
       setData(newData);
     } catch (error) {
@@ -90,7 +90,7 @@ const NewsCRUD = () => {
                 // Xóa ảnh trên Firebase trước khi xóa tin tức
                 await storage().refFromURL(news.image).delete();
               }
-              await axios.delete(`http://192.168.1.152:3000/deletenews/${id}`);
+              await axios.delete(`http://172.16.0.2:3000/deletenews/${id}`);
               // Sau khi xóa, cập nhật lại danh sách tin tức
               fetchData();
             },
@@ -133,14 +133,11 @@ const NewsCRUD = () => {
         }
       }
 
-      await axios.put(
-        `http://192.168.1.152:3000/updatenews/${editingNews._id}`,
-        {
-          name: editedName,
-          content: editedContent,
-          image: imageURL,
-        },
-      );
+      await axios.put(`http://172.16.0.2:3000/updatenews/${editingNews._id}`, {
+        name: editedName,
+        content: editedContent,
+        image: imageURL,
+      });
       setModalVisible(false);
       fetchData();
     } catch (error) {

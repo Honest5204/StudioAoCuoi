@@ -59,7 +59,7 @@ const SignUp = props => {
     }
     try {
       const signUpResponse = await axios.post(
-        'http://192.168.1.152:3000/createUser',
+        'http://172.24.64.1:3000/createUser',
         {
           name,
           email,

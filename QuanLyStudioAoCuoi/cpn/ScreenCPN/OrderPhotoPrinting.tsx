@@ -110,7 +110,7 @@ const OrderPhotoPrinting = () => {
       };
 
       // Gửi dữ liệu đơn hàng cùng URL của hình ảnh lên MongoDB thông qua backend Node.js
-      await axios.post('http://192.168.1.152:3000/photoPrinting', orderData);
+      await axios.post('http://172.16.0.2:3000/photoPrinting', orderData);
 
       Alert.alert('Thông báo', 'Đơn hàng đã được gửi thành công!');
     } catch (error) {
