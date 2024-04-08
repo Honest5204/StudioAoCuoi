@@ -43,7 +43,7 @@ const ScheduleAConsultation = () => {
     try {
       // Gửi yêu cầu đến backend để lấy thông tin người dùng từ _id
       const response = await axios.get(
-        `http://172.24.64.1:3000/getUser/${userId}`,
+        `http://192.168.1.152:3000/getUser/${userId}`,
       );
       const userData = response.data;
       // Cập nhật state với thông tin người dùng đã lấy được
@@ -57,7 +57,7 @@ const ScheduleAConsultation = () => {
   const handleSubmit = async () => {
     try {
       // Gửi yêu cầu đặt lịch hẹn đến backend với _id, ngày hẹn, số điện thoại và nội dung
-      await axios.post('http://172.24.64.1:3000/schedule', {
+      await axios.post('http://192.168.1.152:3000/schedule', {
         userName,
         userEmail,
         date: date,

@@ -97,7 +97,7 @@ function MyDrawer() {
   const getUserInfo = async userId => {
     try {
       const response = await axios.get(
-        `http://172.24.64.1:3000/getUser/${userId}`,
+        `http://192.168.1.152:3000/getUser/${userId}`,
       );
       const userData = response.data;
       setIsAdmin(userData.type === 'admin');

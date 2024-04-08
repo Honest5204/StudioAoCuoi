@@ -29,7 +29,7 @@ const NewsCRUD = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://172.24.64.1:3000/getListNews');
+      const response = await fetch('http://192.168.1.152:3000/getListNews');
       const newData = await response.json();
       setData(newData);
     } catch (error) {
@@ -90,7 +90,7 @@ const NewsCRUD = () => {
                 // Xóa ảnh trên Firebase trước khi xóa tin tức
                 await storage().refFromURL(news.image).delete();
               }
-              await axios.delete(`http://192.168.1.27:3000/deletenews/${id}`);
+              await axios.delete(`http://192.168.1.152:3000/deletenews/${id}`);
               // Sau khi xóa, cập nhật lại danh sách tin tức
               fetchData();
             },
@@ -134,7 +134,7 @@ const NewsCRUD = () => {
       }
 
       await axios.put(
-        `http://192.168.1.27:3000/updatenews/${editingNews._id}`,
+        `http://192.168.1.152:3000/updatenews/${editingNews._id}`,
         {
           name: editedName,
           content: editedContent,
@@ -150,16 +150,32 @@ const NewsCRUD = () => {
 
   const renderItem = ({item}) => {
     return (
-      <View style={{marginVertical: 10}}>
-        <Text>ID: {item._id}</Text>
-        <Text>Tiêu đề: {item.name}</Text>
-        <Text>Nội dung: {item.content}</Text>
+      <View style={styles.containerItem}>
+        <Text style={styles.text}>ID: {item._id}</Text>
+        <Text style={styles.text}>Tiêu đề: {item.name}</Text>
+        <Text style={styles.text}>Nội dung: {item.content}</Text>
         <Image
           source={{uri: item.image}}
-          style={{width: 100, height: 100, marginVertical: 10}}
+          style={{
+            width: 200,
+            height: 200,
+            marginVertical: 10,
+            borderRadius: 10,
+          }}
         />
-        <Button title={'Sửa'} onPress={() => handleEdit(item)} />
-        <Button title={'Xóa'} onPress={() => handleDelete(item._id)} />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            width: '100%',
+          }}>
+          <TouchableOpacity onPress={() => handleEdit(item)}>
+            <Text style={styles.textButton}>Sửa</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleDelete(item._id)}>
+            <Text style={styles.textButton}>Xoá</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -198,8 +214,20 @@ const NewsCRUD = () => {
             {imageURI ? (
               <Image source={{uri: imageURI}} style={styles.image} />
             ) : null}
-            <Button title="Lưu" onPress={handleSave} />
-            <Button title="Hủy" onPress={() => setModalVisible(false)} />
+
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                width: '100%',
+              }}>
+              <TouchableOpacity onPress={handleSave}>
+                <Text style={styles.textButton}>Lưu</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setModalVisible(false)}>
+                <Text style={styles.textButton}>Hủy</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>
@@ -227,7 +255,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     padding: 20,
-    width: '80%',
+    width: '90%',
   },
   input: {
     borderWidth: 1,
@@ -253,9 +281,40 @@ const styles = StyleSheet.create({
     height: 26,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 200,
     marginVertical: 10,
+    borderRadius: 10,
+    alignSelf: 'center',
+  },
+  containerItem: {
+    marginVertical: 10,
+    padding: 10,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textButton: {
+    color: 'black',
+    fontSize: 16,
+    fontWeight: 'bold',
+    padding: 5,
+    textAlign: 'center',
+    backgroundColor: 'pink',
+    borderRadius: 5,
+    margin: 10,
+    width: 130,
+  },
+  text: {
+    color: 'black',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 
-import {FlatList, Text, View} from 'react-native';
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import axios from 'axios';
 const Booking = () => {
   const [data, setData] = useState([]);
   const featchData = async () => {
     try {
-      const response = await axios.get('http://172.24.64.1:3000/getSchedule');
+      const response = await axios.get('http://192.168.1.152:3000/getSchedule');
       setData(response.data);
     } catch (error) {
       console.error(error);
@@ -17,11 +17,11 @@ const Booking = () => {
   }, []);
   const renderItem = ({item}) => {
     return (
-      <View>
-        <Text>id: {item._id}</Text>
-        <Text>ngày hẹn:{item.date}</Text>
-        <Text>Sđt:{item.phoneNumber}</Text>
-        <Text>Nội dung:{item.content}</Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>ID: {item._id}</Text>
+        <Text style={styles.text}>Ngày hẹn: {item.date}</Text>
+        <Text style={styles.text}>Sđt: {item.phoneNumber}</Text>
+        <Text style={styles.text}>Nội dung: {item.content}</Text>
       </View>
     );
   };
@@ -35,5 +35,21 @@ const Booking = () => {
     </View>
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+    margin: 10,
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 1,
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+});
 
 export default Booking;

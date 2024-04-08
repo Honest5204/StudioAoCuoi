@@ -7,8 +7,8 @@ import {
   ScrollView,
   TextInput,
   StyleSheet,
-  Alert,
-} from 'react-native';
+  Alert, TouchableOpacity
+} from "react-native";
 import {launchImageLibrary} from 'react-native-image-picker';
 import storage from '@react-native-firebase/storage';
 import axios from 'axios';
@@ -59,16 +59,16 @@ const AddService = ({navigation, route}) => {
         return;
       }
       const newsData = {name, image: imageURL, content};
-      await axios.post('http://172.24.64.1:3000/addservice', newsData);
+      await axios.post('http://192.168.1.152:3000/addservice', newsData);
       // Sau khi thêm tin tức, clear các trường dữ liệu
       setName('');
       setContent('');
       setImageURI('');
-      Alert.alert('Thông báo', 'Thêm tin tức thành công!');
+      Alert.alert('Thông báo', 'Thêm dịch vụ thành công!');
       refreshData();
       navigation.goBack();
     } catch (error) {
-      console.error('Lỗi khi thêm tin tức vào MongoDB:', error);
+      console.error('Lỗi khi thêm dịch vụ vào MongoDB:', error);
     }
   };
 
@@ -93,7 +93,19 @@ const AddService = ({navigation, route}) => {
         {imageURI ? (
           <Image source={{uri: imageURI}} style={styles.image} />
         ) : null}
-        <Button title="Thêm" onPress={handleAddNews} />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            width: '100%',
+          }}>
+          <TouchableOpacity onPress={handleAddNews}>
+            <Text style={styles.textButton}>Thêm</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Text style={styles.textButton}>Huỷ</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );
@@ -122,7 +134,20 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
-    marginTop: 20,
+    marginVertical: 10,
+    borderRadius: 10,
+    alignSelf: 'center',
+  },
+  textButton: {
+    color: 'black',
+    fontSize: 16,
+    fontWeight: 'bold',
+    padding: 5,
+    textAlign: 'center',
+    backgroundColor: 'pink',
+    borderRadius: 5,
+    margin: 10,
+    width: 130,
   },
 });
 

@@ -23,7 +23,7 @@ const Home = ({navigation}) => {
   const [featuredData, setFeaturedData] = useState([]);
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://172.24.64.1:3000/featuredData');
+      const response = await axios.get('http://192.168.1.152:3000/featuredData');
       setFeaturedData(response.data);
     } catch (error) {
       console.error(error);
